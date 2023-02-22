@@ -3,18 +3,18 @@
     <ClockComponent/>
     <h2>Hello! Here is the weather for today:</h2>
     <div>
-      Poland, Lublin, {{currentWeather.latitude }} , {{ currentWeather.longitude }}
+      Poland, Lublin, {{this.getCurrentWeather.latitude }} , {{ this.getCurrentWeather.longitude }}
       <div>
-        Temperature: {{ currentWeather.current_weather?.temperature }}°C
+        Temperature: {{ this.getCurrentWeather.current_weather?.temperature }}°C
       </div>
       <div>
-        Weather Code: {{ currentWeather.current_weather?.weathercode }}
+        Weather Code: {{ this.getCurrentWeather.current_weather?.weathercode }}
       </div>
       <div>
-        Wind Speed: {{ currentWeather.current_weather?.windspeed }}
+        Wind Speed: {{ this.getCurrentWeather.current_weather?.windspeed }}
       </div>
       <div>
-        Time: {{ currentWeather.current_weather?.time }}
+        Time: {{ this.getCurrentWeather.current_weather?.time }}
       </div>
 
     </div>
@@ -42,11 +42,14 @@ export default {
   mounted() {
     this.fetchCurrentWeather();
   },
+  computed:{
+    getCurrentWeather(){
+      return this.weatherStore.getCurrentWeather;
+    }
+  },
   methods: {
     fetchCurrentWeather(){
-      this.weatherStore.fetchCurrentWeather().then(() =>
-        this.currentWeather = this.weatherStore.getCurrentWeather
-      );
+      this.weatherStore.fetchCurrentWeather();
     },
   },
 }
