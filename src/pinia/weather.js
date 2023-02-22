@@ -4,13 +4,15 @@ import axios from "/src/axios.js";
 export const useWeatherStore = defineStore("weather", {
 	state: () => {
 		return {
-			currentWeather: Object,
+			currentWeather: [],
 		};
 	},
 	actions: {
-		async fetchWeatherForNow() {
+		async fetchCurrentWeather() {
 			await axios
-				.get("/v1/forecast?latitude=51.25&longitude=22.57&current_weather=true")
+				.get(
+					"/v1/forecast?latitude=51.25&longitude=22.57&current_weather=true&timezone=CET"
+				)
 				.then((res) => {
 					this.currentWeather = res.data;
 					console.log(res.data);

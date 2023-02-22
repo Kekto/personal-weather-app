@@ -1,7 +1,7 @@
 <template>
 <div class="clock">
-    <p class="date">{{ clock.date }}</p>
-    <p class="time">{{ clock.time }}</p>
+    <div class="time">{{ clock.time }}</div>
+    <div class="date">{{ clock.date }}</div>
 </div>
 </template>
 
@@ -12,7 +12,7 @@
         return {
             clock:{
                 time: '00:00:00',
-                date: '',
+                date: '00.00.0000',
             },
         };
     },
@@ -24,6 +24,7 @@
     methods: {
         updateTime(){
             var cd = new Date();
+            this.clock.date = this.zeroPadding(cd.getDate(),2) + "." + this.zeroPadding(cd.getMonth(),2) + "." + cd.getFullYear()
             this.clock.time = this.zeroPadding(cd.getHours()) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
         },
         zeroPadding(num, digit) {
@@ -39,7 +40,12 @@
 
 <style>
 .clock{
-    font-size: 50px;
     font-weight: bold;
+}
+.date{
+    font-size: 25px;
+}
+.time{
+    font-size: 40px;
 }
 </style>
