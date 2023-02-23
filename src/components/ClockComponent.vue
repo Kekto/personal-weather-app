@@ -2,7 +2,6 @@
 <div class="clock">
     <div class="time">{{ clock.time }}</div>
     <div class="date">{{ clock.date }}</div>
-    <div>{{ tempHour }}</div>
 </div>
 </template>
 
