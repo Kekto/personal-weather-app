@@ -5,6 +5,7 @@ export const useWeatherStore = defineStore("weather", {
 	state: () => {
 		return {
 			currentWeather: [],
+			hour: "",
 		};
 	},
 	actions: {

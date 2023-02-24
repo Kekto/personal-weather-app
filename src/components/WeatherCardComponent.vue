@@ -11,7 +11,82 @@
     </template>
     <div class="weather-info">
       <div class="weatherCode">
-        Weather Code: {{ this.getCurrentWeather.current_weather?.weathercode }}
+        <!-- CLEAR SKY DAY/NIGHT-->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 0 &&
+          this.weatherStore.hour >=7 && this.weatherStore.hour <19"
+        >
+          <el-icon size="60px"><Sunny /></el-icon>
+        </div>
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 0 &&
+          this.weatherStore.hour < 7 && this.weatherStore.hour >=19"
+        >
+          <el-icon size="60px"><Moon /></el-icon>
+        </div>
+        <!-- CLOUDY -->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 1 "
+        >
+          <el-icon size="60px"><PartlyCloudy /></el-icon>
+        </div>
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 2 "
+        >
+          <el-icon size="60px"><MostlyCloudy /></el-icon>
+        </div>
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 3 "
+        >
+          <el-icon size="60px"><Cloudy /></el-icon>
+        </div>
+        <!-- FOG -->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 45 ||
+          this.getCurrentWeather.current_weather?.weathercode === 48 "
+        >
+          <FogIcon/>
+        </div>
+        <!-- DRIZZLING -->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 56 ||
+          this.getCurrentWeather.current_weather?.weathercode === 57 "
+        >
+        <el-icon size="60px"><Drizzling /></el-icon>
+        </div>
+        <!-- RAINING -->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 61 ||
+          this.getCurrentWeather.current_weather?.weathercode === 62 ||
+          this.getCurrentWeather.current_weather?.weathercode === 63"
+        >
+          <el-icon size="60px"><Pouring /></el-icon>
+        </div>
+        <!-- FREEZING RAIN-->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 66 ||
+          this.getCurrentWeather.current_weather?.weathercode === 67"
+        >
+          <FreezingRainIcon/>
+        </div>
+        <!-- SNOWFALL -->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 71 ||
+          this.getCurrentWeather.current_weather?.weathercode === 73 ||
+          this.getCurrentWeather.current_weather?.weathercode === 75 ||
+          this.getCurrentWeather.current_weather?.weathercode === 77"
+        >
+          <SnowingIcon/>
+        </div>
+        <!-- RAIN SHOWERS -->
+        <!-- SNOW SHOWERS -->
+        <!-- THUNDERSTORMS -->
+        <div v-if="
+          this.getCurrentWeather.current_weather?.weathercode === 95"
+        >
+          <el-icon size="60px"><Lightning /></el-icon>
+        </div>
+        <!-- HAILS -->
       </div>
       <div class="temperature">
         {{ this.getCurrentWeather.current_weather?.temperature }}°C
@@ -26,12 +101,19 @@
       </div>
     </div>
   </el-card>
+
 </template>
   
 <script>
+import FogIcon from "@/components/WeatherIcons/FogIcon.vue"
+import FreezingRainIcon from "@/components/WeatherIcons/FreezingRainIcon.vue"
+import SnowingIcon from "@/components/WeatherIcons/SnowingIcon.vue"
 import { useWeatherStore } from '@/pinia/weather';
 export default {
   name: "WeatherCardComponent",
+  components:{
+    SnowingIcon,FreezingRainIcon,FogIcon
+  },
   data() {
     return {
         
@@ -74,6 +156,10 @@ export default {
   font-size: 15px;
   margin-left: 10px;
   opacity: 70%;
+}
+.temperature{
+  font-size: 30px;
+  font-weight: bold;
 }
 .weather-info {
   display: flex;

@@ -1,7 +1,8 @@
 <template>
     <div class="blackbox">
         <el-card class="box-card">
-        <el-icon style="opacity: 50%;" size="80px"><CirclePlus /></el-icon>
+        <el-icon style="opacity: 20%;" size="80px"><CirclePlus /></el-icon>
+        <div class="text">Add New Location</div>
     </el-card>
     </div>
 
@@ -39,6 +40,11 @@
     align-items: center;
     cursor: pointer;
     background: white;
+  }
+  .text{
+    opacity: 35%;
+    font-weight: bold;
+    font-size: 20px;
   }
   .box-card:hover{
     opacity: 90%;
