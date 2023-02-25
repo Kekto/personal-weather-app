@@ -12,6 +12,7 @@
     <div class="weather-info">
       <div class="weatherCode">
         <!-- CLEAR SKY DAY/NIGHT-->
+        {{this.getCurrentWeather.current_weather?.weathercode  }}
         <div v-if="
           this.getCurrentWeather.current_weather?.weathercode === 0 &&
           this.weatherStore.hour >=7 && this.weatherStore.hour <19"
@@ -45,7 +46,7 @@
           this.getCurrentWeather.current_weather?.weathercode === 45 ||
           this.getCurrentWeather.current_weather?.weathercode === 48 "
         >
-          <FogIcon/>
+   
         </div>
         <!-- DRIZZLING -->
         <div v-if="
@@ -67,7 +68,7 @@
           this.getCurrentWeather.current_weather?.weathercode === 66 ||
           this.getCurrentWeather.current_weather?.weathercode === 67"
         >
-          <FreezingRainIcon/>
+   
         </div>
         <!-- SNOWFALL -->
         <div v-if="
@@ -76,7 +77,7 @@
           this.getCurrentWeather.current_weather?.weathercode === 75 ||
           this.getCurrentWeather.current_weather?.weathercode === 77"
         >
-          <SnowingIcon/>
+        
         </div>
         <!-- RAIN SHOWERS -->
         <!-- SNOW SHOWERS -->
@@ -105,14 +106,10 @@
 </template>
   
 <script>
-import FogIcon from "@/components/WeatherIcons/FogIcon.vue"
-import FreezingRainIcon from "@/components/WeatherIcons/FreezingRainIcon.vue"
-import SnowingIcon from "@/components/WeatherIcons/SnowingIcon.vue"
 import { useWeatherStore } from '@/pinia/weather';
 export default {
   name: "WeatherCardComponent",
   components:{
-    SnowingIcon,FreezingRainIcon,FogIcon
   },
   data() {
     return {
