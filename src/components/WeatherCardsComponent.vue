@@ -1,10 +1,10 @@
 <template>
 <div class="cards-view">
-    <WeatherCardComponent/>
-    <WeatherCardComponent/>
-    <WeatherCardComponent/>
-    <WeatherCardComponent/>
-    <WeatherCardComponent/>
+    <WeatherCardComponent
+    v-for="location in this.getCurrentLocations" 
+    :key="location.id"
+    :location="location"
+    />
     <EmptyCardComponent/>
 </div>
 </template>
@@ -12,17 +12,43 @@
 <script>
 import WeatherCardComponent from '@/components/WeatherCardComponent.vue';
 import EmptyCardComponent from './EmptyCardComponent.vue';
+import { useWeatherStore } from '@/pinia/weather';
+import { useLocationStore } from '@/pinia/location';
 
 export default {
     name: 'WeatherCardsComponent',
     components: {
         WeatherCardComponent,EmptyCardComponent
     },
+    props:{
+        locations: Object,
+    },
     data() {
         return {
 
         }
     },
+    setup() {
+        const weatherStore = useWeatherStore();
+        const locationStore = useLocationStore();
+        return { weatherStore , locationStore}
+    },
+    computed:{
+        getCurrentWeatherArray(){
+            return this.weatherStore.getCurrentWeatherArray;
+        },
+        getCurrentLocations(){
+            return this.locationStore.getCurrentLocations;
+        }
+    },
+    mounted(){
+        this.fetchCurrentLocations();
+    },
+    methods: {
+        fetchCurrentLocations(){
+            this.locationStore.fetchCurrentLocations();
+        },
+    }
 }
 </script>
 

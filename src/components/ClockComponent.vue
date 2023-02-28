@@ -37,9 +37,9 @@ export default {
             if(this.tempHour != this.zeroPadding(cd.getHours(),2)){
                 this.tempHour = this.zeroPadding(cd.getHours(),2);
                 this.weatherStore.hour = cd.getHours();
-                setTimeout(()=>{
-                this.weatherStore.fetchCurrentWeather();
-                },5000)
+                // setTimeout(()=>{
+                //     this.weatherStore.fetchCurrentWeatherFromLocation();
+                // },5000)
             }
         },
         zeroPadding(num, digit) {

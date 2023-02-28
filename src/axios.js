@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-	baseURL: "https://api.open-meteo.com",
+	baseURL: "",
 });
 instance.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 instance.defaults.headers.post["Content-Type"] = "application/json";
