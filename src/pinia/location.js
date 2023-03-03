@@ -13,7 +13,7 @@ export const useLocationStore = defineStore("location", {
 				.get(`http://localhost:3000/locations`)
 				.then((res) => {
 					this.locations = res.data;
-					console.log(res.data);
+					// console.log(res.data);
 				})
 				.catch((err) => {
 					console.log(err);

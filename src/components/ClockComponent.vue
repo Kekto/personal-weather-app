@@ -7,6 +7,7 @@
 
 <script>
 import { useWeatherStore } from '@/pinia/weather';
+import { useLocationStore } from '@/pinia/location';
 
 export default {
     name: "ClockComponent",
@@ -26,7 +27,8 @@ export default {
     },
     setup() {
         const weatherStore = useWeatherStore();
-        return { weatherStore }
+        const locationStore = useLocationStore();
+        return { weatherStore , locationStore }
     },
     methods: {
         updateTime(){
@@ -37,9 +39,9 @@ export default {
             if(this.tempHour != this.zeroPadding(cd.getHours(),2)){
                 this.tempHour = this.zeroPadding(cd.getHours(),2);
                 this.weatherStore.hour = cd.getHours();
-                // setTimeout(()=>{
-                //     this.weatherStore.fetchCurrentWeatherFromLocation();
-                // },5000)
+                setTimeout(()=>{
+                    this.locationStore.fetchCurrentLocations();
+                },5000)
             }
         },
         zeroPadding(num, digit) {
