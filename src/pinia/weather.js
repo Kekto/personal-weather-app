@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "/src/axios.js";
-// import { addDays } from "/src/misc.js";
+import { stylizeDate, addDays } from "/src/misc.js";
 
 export const useWeatherStore = defineStore("weather", {
 	state: () => {
@@ -48,7 +48,6 @@ export const useWeatherStore = defineStore("weather", {
 		},
 		async fetchLongTermReport(latitude, longitude) {
 			let cd = new Date();
-			console.log(cd);
 			await axios
 				.get(
 					`https://api.open-meteo.com/v1/forecast?latitude=` +
@@ -56,9 +55,9 @@ export const useWeatherStore = defineStore("weather", {
 						`&longitude=` +
 						longitude +
 						`&hourly=temperature_2m,weathercode,windspeed_10m,winddirection_10m&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin&start_date=` +
-						`2023-03-03` +
+						stylizeDate(cd) +
 						`&end_date=` +
-						`2023-03-17`
+						stylizeDate(addDays(cd, 14))
 				)
 				.then((res) => {
 					this.longTermWeatherDaily = this.adjustDailyJSON(res.data.daily);

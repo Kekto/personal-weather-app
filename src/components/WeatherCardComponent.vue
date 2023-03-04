@@ -13,7 +13,7 @@
     </template>
     <div class="weather-info">
       <div v-if="this.getCurrentWeatherArray[this.getCurrentWeatherIdByOrder.indexOf(this.location.id)]?.current_weather" class="weatherCode">
-        <img class="icon" :src="require(`@/assets/`+ this.getWeatherIcons(this.getCurrentWeatherArray[this.getCurrentWeatherIdByOrder.indexOf(this.location.id)].current_weather?.weathercode)+`.svg`)" alt=""/>
+        <img class="icon" :src="require(`@/assets/`+ this.getWeatherIcons(this.getCurrentWeatherArray[this.getCurrentWeatherIdByOrder.indexOf(this.location.id)].current_weather?.weathercode,new Date().getHours())+`.svg`)" alt=""/>
       </div>
       <div class="temperature">
         {{ this.getCurrentWeatherArray[this.getCurrentWeatherIdByOrder.indexOf(this.location.id)]?.current_weather?.temperature }}°C
@@ -35,7 +35,8 @@
   <el-dialog
       v-model="this.dialogToggle"
       title="14 Days Weather"
-      width="70%"
+      width="80%"
+      style="border-radius: 10px"
   >
     <LongTermWeatherComponent />
   </el-dialog>
@@ -85,8 +86,8 @@ export default {
     fetchLongTermWeather(location){
       this.weatherStore.fetchLongTermReport(location?.latitude,location?.longitude);
     },
-    getWeatherIcons(weatherCode){
-       return getWeatherIcon(weatherCode);
+    getWeatherIcons(weatherCode,hour){
+       return getWeatherIcon(weatherCode,hour);
     },
     zeroPaddings(num, digit){
       return zeroPadding(num, digit);

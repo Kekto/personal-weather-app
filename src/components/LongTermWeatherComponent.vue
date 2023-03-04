@@ -6,12 +6,19 @@
       >
       <el-collapse-item>
         <template #title>
-          <div class="date">
+          <div class="daily">
+            <div class="date">
             {{ day.time }}
-          </div>
-          <img class="icon" :src="require(`@/assets/`+ this.getWeatherIcons(day.weathercode)+`.svg`)" alt=""/>
-          <div class="temperature">
-            {{  }}
+            </div>
+            <img class="icon" :src="require(`@/assets/`+ this.getWeatherIcons(day.weathercode,12)+`.svg`)" alt=""/>
+            <div class="temperature">
+              Maximum temperature:
+              {{ day.temperature_2m_max }}°C
+            </div>
+            <div class="temperature">
+              Minimum temperature:
+              {{ day.temperature_2m_min }}°C
+            </div>
           </div>
         </template>
         <div class="hourly"
@@ -20,7 +27,18 @@
           <div class="date-hourly">
             {{ hour.time.split('T')[1] }}
           </div>
-          <img class="icon-hourly" :src="require(`@/assets/`+ this.getWeatherIcons(hour.weathercode)+`.svg`)" alt=""/>
+          <img class="icon-hourly" :src="require(`@/assets/`+ this.getWeatherIcons(hour.weathercode,hour.time.split('T')[1].split(':')[0])+`.svg`)" alt=""/>
+          <div class="temperature-hourly">
+            {{ hour?.temperature_2m }}°C
+          </div>
+          <div class="info">
+          <img style="width: 40px; height: 40px;" src="@/assets/windsock.svg" />
+           {{ hour?.windspeed_10m }} km/h
+          </div>
+          <div class="info">
+            <img style="width: 40px;height: 40px;" src="@/assets/compass.svg" />
+            {{ hour?.winddirection_10m }}°
+          </div>
         </div>
       </el-collapse-item>
     </el-collapse>
@@ -55,8 +73,8 @@ export default {
     },
   },
   methods: {
-    getWeatherIcons(weatherCode){
-       return getWeatherIcon(weatherCode);
+    getWeatherIcons(weatherCode,hour){
+       return getWeatherIcon(weatherCode,hour);
     },
     zeroPaddings(num, digit){
       return zeroPadding(num, digit);
@@ -67,33 +85,57 @@ export default {
 </script>
 
 <style scoped>
-.icon{
-  display:flex;
-  width: 80px;
-  padding-left: 25px;
+.daily{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between; 
+  padding-right: 100px;
 }
 .date{
   padding-left: 25px;
   font-size: 17px;
   font-weight: bold;
+  width: 200px;
+}
+.icon{
+  display:flex;
+  width: 80px;
+}
+.temperature{
+  width: 250px;
+  font-weight: bold;
+  font-size: 15px;
 }
 .hourly{
   display: flex;
   align-items: center;
-  height: 60px;
+  justify-content: space-evenly;
+  height: 40px;
 }
 .icon-hourly{
-  height: 80px;
-  padding-left: 25px;
+  height: 45px;
+  padding-left: 40px;
 }
 .date-hourly{
   padding-left: 70px;
   font-size: 17px;
   font-weight: bold;
 }
+.temperature-hourly{
+  width: 140px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.info {
+  display: flex;
+  align-items: center;
+  width: 140px;
+  font-weight: bold;
+}
 </style>
 <style>
 .el-collapse-item__header{
-  height: 80px !important;
+  height: 70px !important;
 }
 </style>

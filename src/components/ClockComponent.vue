@@ -33,7 +33,7 @@ export default {
     methods: {
         updateTime(){
             var cd = new Date();
-            this.clock.date = this.zeroPadding(cd.getDate(),2) + "." + this.zeroPadding(cd.getMonth(),2) + "." + cd.getFullYear()
+            this.clock.date = this.zeroPadding(cd.getDate(),2) + "." + this.zeroPadding(cd.getMonth()+1,2) + "." + cd.getFullYear()
             this.clock.time = this.zeroPadding(cd.getHours(),2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
             
             if(this.tempHour != this.zeroPadding(cd.getHours(),2)){

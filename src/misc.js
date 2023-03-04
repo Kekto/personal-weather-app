@@ -1,8 +1,6 @@
 import { Date } from "core-js";
 
-function getWeatherIcon(weatherCode) {
-	var cd = new Date();
-	const hour = cd.getHours();
+function getWeatherIcon(weatherCode, hour) {
 	var code = weatherCode;
 
 	if (weatherCode === 2 || weatherCode === 3) {
@@ -51,10 +49,20 @@ function zeroPadding(num, digit) {
 	return (zero + num).slice(-digit);
 }
 
+function stylizeDate(date) {
+	return (
+		date.getFullYear() +
+		`-` +
+		zeroPadding(date.getMonth() + 1, 2) +
+		`-` +
+		zeroPadding(date.getDate(), 2)
+	);
+}
+
 function addDays(date, days) {
 	var tempDate = new Date();
 	tempDate.setDate(date.getDate() + days);
 	return tempDate;
 }
 
-export { getWeatherIcon, zeroPadding, addDays };
+export { getWeatherIcon, zeroPadding, addDays, stylizeDate };
