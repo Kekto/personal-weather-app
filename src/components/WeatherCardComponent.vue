@@ -35,7 +35,7 @@
   <el-dialog
       v-model="this.dialogToggle"
       title="14 Days Weather"
-      width="80%"
+      width="90%"
       style="border-radius: 10px"
   >
     <LongTermWeatherComponent />

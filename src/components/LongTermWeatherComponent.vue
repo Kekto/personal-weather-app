@@ -88,12 +88,10 @@ export default {
 .daily{
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 90%;
   justify-content: space-between; 
-  padding-right: 100px;
 }
 .date{
-  padding-left: 25px;
   font-size: 17px;
   font-weight: bold;
   width: 200px;
@@ -115,7 +113,7 @@ export default {
 }
 .icon-hourly{
   height: 45px;
-  padding-left: 40px;
+  padding-left: 20px;
 }
 .date-hourly{
   padding-left: 70px;
