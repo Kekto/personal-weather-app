@@ -1,27 +1,41 @@
 <template>
-    <div class="blackbox">
-        <el-card class="box-card">
-        <el-icon style="opacity: 20%;" size="80px"><CirclePlus /></el-icon>
-        <div class="text">Add New Location</div>
-    </el-card>
-    </div>
+  <div class="blackbox" @click="this.toggleDialogWindow">
+      <el-card class="box-card">
+      <el-icon style="opacity: 20%;" size="80px"><CirclePlus /></el-icon>
+      <div class="text">Add New Location</div>
+  </el-card>
+  </div>
+  <el-dialog
+      v-model="this.dialogToggle"
+      width="70%"
+      style="border-radius: 10px"
+  >
+  <AddLocationComponent/>
+  </el-dialog>
+</template>
 
-  </template>
-    
-  <script>
+<script>
+import AddLocationComponent from './AddLocationComponent.vue';
+
   export default {
     name: "EmptyCardComponent",
+    components:{
+      AddLocationComponent
+    },
     data() {
       return {
-          
+          dialogToggle: false,
       }
     },
     methods: {
+      toggleDialogWindow(){
+        this.dialogToggle = true;
+      }
 
     },
     
   };
-  </script>
+</script>
     
   <style scoped> 
   .blackbox{

@@ -3,6 +3,22 @@
     :dataset="this.getLongTermWeatherDaily"
     class="mb-30 chart-daily"
   />
+  <el-collapse>
+        <div class="daily">
+          <div class="date">
+          Date:
+          </div>
+          <div class="weathertype">
+            Weather type:
+          </div>
+          <div class="temperature">
+            Maximum temperature:
+          </div>
+          <div class="temperature">
+            Minimum temperature:
+          </div>
+        </div>
+  </el-collapse>
   <div class="demo-collapse">
   <el-collapse
     v-for="day in this.getLongTermWeatherDaily"
@@ -16,11 +32,9 @@
           </div>
           <img class="icon" :src="require(`@/assets/`+ this.getWeatherIcons(day.weathercode,12)+`.svg`)" alt=""/>
           <div class="temperature">
-            Maximum temperature:
             {{ day.temperature_2m_max }}°C
           </div>
           <div class="temperature">
-            Minimum temperature:
             {{ day.temperature_2m_min }}°C
           </div>
         </div>
@@ -112,6 +126,11 @@ export default {
 .icon{
   display:flex;
   width: 80px;
+}
+.weathertype{
+  width: 150px;
+  font-weight: bold;
+  font-size: 15px;
 }
 .temperature{
   width: 250px;

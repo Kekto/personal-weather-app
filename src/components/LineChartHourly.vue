@@ -1,16 +1,16 @@
 <template>
-    <Line :data="chartData"  />
+    <Bar :data="chartData"  />
 </template>
   
 <script>
-  import { Line } from 'vue-chartjs'
-  import { Chart as ChartJS, Title, Tooltip, Filler, PointElement, Legend, LineElement, CategoryScale, LinearScale } from 'chart.js'
+  import { Bar } from 'vue-chartjs'
+  import { Chart as ChartJS, Title, Tooltip, Filler, PointElement, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 
-  ChartJS.register(Title, Tooltip, Legend, Filler, PointElement, LineElement, CategoryScale, LinearScale)
+  ChartJS.register(Title, Tooltip, Legend, Filler, PointElement, BarElement, CategoryScale, LinearScale)
   
   export default {
     name: 'LineChartHourly',
-    components: { Line },
+    components: { Bar },
     props:{
         dataset: Array,
     },
@@ -36,12 +36,7 @@
                     label: 'Temperature °C',
                     data: this.dataset.map(d=> d.temperature_2m),
                     borderColor:'rgb(214, 228, 240)',
-                    tension: 0.3,
-                    fill: {
-                        target: 'origin',
-                        above: 'rgb(214, 228, 240, 0.6)',   // Area will be red above the origin
-                        below: 'rgb(168, 194, 230, 0.5)'    // And blue below the origin
-                    },
+                    backgroundColor:'rgb(214, 228, 240)',
                     }
                 ]
                 }

@@ -37,6 +37,7 @@
       title="14 Days Weather"
       width="70%"
       style="border-radius: 10px"
+      destroy-on-close
   >
     <LongTermWeatherComponent />
   </el-dialog>
