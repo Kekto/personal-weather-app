@@ -6,7 +6,7 @@
           <a class="cityName">{{this.location?.city}}</a>
           <a class="countryName">{{this.location?.country}}</a>
         </span>
-        <el-button class="button" text @click="this.toggleDialogWindow()">
+        <el-button plain color="#1e56a0" style="font-weight: bold;" @click="this.toggleDialogWindow()">
           Check next 14 Days
         </el-button>
       </div>
@@ -157,10 +157,6 @@ export default {
 .box-card {
   width: 390px;
   border-radius: 15px;
-}
-.button{
-  font-weight: bold;
-  color: #1e56a0 !important;
 }
 .icon{
   width: 100px;

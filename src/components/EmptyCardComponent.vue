@@ -7,7 +7,7 @@
   </div>
   <el-dialog
       v-model="this.dialogToggle"
-      width="70%"
+      width="60%"
       style="border-radius: 10px"
   >
   <AddLocationComponent/>
@@ -16,11 +16,16 @@
 
 <script>
 import AddLocationComponent from './AddLocationComponent.vue';
+import { useLocationStore } from '@/pinia/location';
 
   export default {
     name: "EmptyCardComponent",
     components:{
       AddLocationComponent
+    },
+    setup() {
+        const locationStore = useLocationStore();
+        return {locationStore}
     },
     data() {
       return {
@@ -30,6 +35,7 @@ import AddLocationComponent from './AddLocationComponent.vue';
     methods: {
       toggleDialogWindow(){
         this.dialogToggle = true;
+        this.locationStore.fetchAllLocations();
       }
 
     },

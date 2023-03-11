@@ -1,21 +1,149 @@
 <template>
-    <div>
+  <h3>Add Pre-Registered Location</h3>
+  <el-select v-if="this.getAllLocations" v-model="value" filterable placeholder="Select">
+    <el-option 
+      v-for="location in this.getAllLocations"
+      :key="location.id"
+      :label="location.city +' '+ location.country"
+      :value="location.id"
+    >
+      <span style="float: left">
+        {{ location.city }}
+        <span style="font-size: 13px;opacity: 50%;">
+          {{ location.country }}
+        </span>
+      </span>
+    </el-option>
+  </el-select>
+  <div>
+    <el-button color="#1e56a0" class="button" round plain @click="this.addLocation(this.value)">
+      <span style="margin-right: 5px;">Add</span>
+      <el-icon size="large"><Plus /></el-icon>
+    </el-button>
+  </div>
+  <el-divider content-position="center">
+    <span class="divider">or</span>
+  </el-divider>
+  <div class="tooltip">
+    <h3>Create Custom Location</h3>
+    <el-tooltip class="tooltip" placement="left">
+      <template #content>
         
-    </div>
+      </template>
+      <el-icon size="20px"><QuestionFilled /></el-icon>
+    </el-tooltip>
+  </div>
+
+  <!-- LOCATION CREATION FORM -->
+  <el-form :model="form" label-width="90px" style="margin-left: 5%;margin-right: 5%;">
+    <el-form-item label="Country">
+      <el-input v-model="form.country" />
+    </el-form-item>
+    <el-form-item label="City">
+      <el-input v-model="form.city" />
+    </el-form-item>
+    <el-form-item label="Coordinates:">
+      <el-col :span="12">
+        <el-form-item label="Latitude">
+          <el-input v-model="form.latitude" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="Longitude">
+          <el-input v-model="form.longitude" />
+        </el-form-item>
+      </el-col>
+    </el-form-item>
+  </el-form>
+  <div>
+    <el-button color="#1e56a0" class="button" round plain @click="this.createCustomLocation()">
+      <span style="margin-right: 5px;">Add</span>
+      <el-icon size="large"><Plus /></el-icon>
+    </el-button>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: "AddLocationComponent",
-    data() {
-      return {
-      }
+import { useLocationStore } from '@/pinia/location';
+
+export default {
+  name: "AddLocationComponent",
+  setup() {
+      const locationStore = useLocationStore();
+      return {locationStore}
+  },
+  data() {
+    return {
+      value: "",
+      cities: [],
+      form:{
+          id:'',
+          city:'',
+          country:'',
+          latitude:'',
+          longitude:'',
+      },
+    }
+  },
+  computed:{
+    getAllLocations(){
+      return this.locationStore.getAllLocations;
     },
-    methods: {
+  },
+  mounted(){
+    setTimeout(()=>{
+      this.checkExistence(this.locationStore.getAllLocations[5],this.locationStore.getCurrentLocations)
+    },2000)
+  },
+  methods: {
+    addLocation(id){
+      console.log(id);
+      this.locationStore.addLocation(id);
+      setTimeout(()=>{
+        this.locationStore.fetchCurrentLocations();
+      },1000)
     },
-  };
+    createCustomLocation(){
+      this.form.id = this.locationStore.getAllLocations[this.locationStore.getAllLocations.length-1].id + 1;
+      this.locationStore.createCustomLocation(this.form).then(
+        this.form = {
+          id:'',
+          city:'',
+          country:'',
+          latitude:'',
+          longitude:'',
+        }
+      )
+      setTimeout(()=>{
+        this.locationStore.fetchAllLocations();
+      },1000)
+    },
+    checkExistence(object,array){
+      console.log((array.some(function(e) {
+        return e.city == object.city
+      })));
+    }
+  },
+};
 </script>
 
 <style scoped>
-
+.tooltip{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  left: 20px;
+}
+.button{
+  margin-top: 10px;
+  width: 100px;
+}
+.divider{
+  font-weight: bold;
+  opacity: 50%;
+  color: "#1e56a0";
+}
 </style>
