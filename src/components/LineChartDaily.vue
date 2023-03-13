@@ -38,11 +38,10 @@
                     borderColor:'rgb(214, 228, 240)',
                     tension: 0.3,
                     fill: {
-                        target: 'origin',
-                        above: 'rgb(214, 228, 240, 0.6)',   // Area will be red above the origin
-                        below: 'rgb(168, 194, 230, 0.5)'    // And blue below the origin
+                      target: 'origin',
+                      above: 'rgb(214, 228, 240, 0.6)',   
+                      below: 'rgb(168, 194, 230, 0.5)' 
                     }
-
                     }
                 ]
                 }

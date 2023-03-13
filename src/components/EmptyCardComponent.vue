@@ -48,11 +48,11 @@ import { useLocationStore } from '@/pinia/location';
     background: black;
     border-radius: 15px;
     width: 390px;
-    height: 159px;
+    height: 170px;
   }
   .box-card {
     width: 390px;
-    height: 159px;
+    height: 170px;
     border-radius: 15px;
     border: none;
     display: flex;

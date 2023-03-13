@@ -28,7 +28,24 @@
     <h3>Create Custom Location</h3>
     <el-tooltip class="tooltip" placement="left">
       <template #content>
-        
+        <div class="tooltip-text">
+          Custom Location Creator is designed to help you add locations
+          which are not available from the Pre-Registered Locations list.
+          Easiest way to do so, is to use Google Maps:
+        </div>
+        <img class="tooltip-image" src="@/assets/tooltip1.png"/>
+        <div class="tooltip-text">
+          After you found the location of your choosing, right click on it
+          for the coordinates to show up. Then input those coordinates 
+          into latitude and longitude (in that order) alongside 
+          corresponding city and country information.
+        </div>
+        <img class="tooltip-image" src="@/assets/tooltip2.png"/>
+        <div class="tooltip-text">
+          Once you made sure all information is correct, you can add the
+          location to your local list, in which it should show up right 
+          afterwards.
+        </div>
       </template>
       <el-icon size="20px"><QuestionFilled /></el-icon>
     </el-tooltip>
@@ -136,6 +153,15 @@ export default {
   margin-bottom: 10px;
   position: relative;
   left: 20px;
+}
+.tooltip-text{
+  font-size: 14px;
+  width:300px;
+  text-align: justify;
+  text-justify: auto;
+}
+.tooltip-image{
+  width:300px;
 }
 .button{
   margin-top: 10px;

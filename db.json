@@ -34,13 +34,6 @@
       "country": "Spain",
       "latitude": 40.45,
       "longitude": -3.681
-    },
-    {
-      "id": 11,
-      "city": "Belfast",
-      "country": "Great Britain",
-      "latitude": "54.5857",
-      "longitude": "-5.8550"
     }
   ],
   "allLocations": [

@@ -41,9 +41,19 @@ export const useLocationStore = defineStore("location", {
 					console.log(err);
 				});
 		},
-		async createCustomLocation(object) {
+		async createCustomLocation(location) {
 			await axios
-				.post(`http://localhost:3000/allLocations`, object)
+				.post(`http://localhost:3000/allLocations`, location)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+		async deleteLocation(id) {
+			await axios
+				.delete(`http://localhost:3000/locations/` + id)
 				.then((res) => {
 					console.log(res);
 				})

@@ -2,12 +2,16 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span>
+        <span style="width: 100px">
           <a class="cityName">{{this.location?.city}}</a>
+          <br/>
           <a class="countryName">{{this.location?.country}}</a>
         </span>
         <el-button plain color="#1e56a0" style="font-weight: bold;" @click="this.toggleDialogWindow()">
           Check next 14 Days
+        </el-button>
+        <el-button plain type='danger' style="font-weight: bold;" @click="this.toggleDelete()">
+          <el-icon><Delete /></el-icon>
         </el-button>
       </div>
     </template>
@@ -39,13 +43,31 @@
       style="border-radius: 10px"
       destroy-on-close
   >
+  <div class="longterm-title">
+    <a class="longterm-city">{{this.location?.city}}</a>
+    <a class="longterm-country">{{this.location?.country}}</a>
+  </div>
     <LongTermWeatherComponent />
+  </el-dialog>
+  <el-dialog
+      v-model="this.deleteToggle"
+      title="Are you sure you want to delete entry:"
+      width="500px"
+      style="border-radius: 10px"
+      destroy-on-close
+  >
+    <a class="longterm-city">{{this.location?.city}}</a>
+    <a class="longterm-country">{{this.location?.country}}</a>
+    <el-button plain type='danger' style="font-weight: bold;" @click="this.deleteLocation(location.id)">
+      <el-icon><Delete /></el-icon>
+    </el-button>
   </el-dialog>
 </template>
   
 <script>
 import LongTermWeatherComponent from './LongTermWeatherComponent.vue';
 import { useWeatherStore } from '@/pinia/weather';
+import { useLocationStore } from '@/pinia/location';
 import { getWeatherIcon , zeroPadding } from '@/misc'
 export default {
   name: "WeatherCardComponent",
@@ -58,6 +80,7 @@ export default {
   data() {
     return {
       dialogToggle: false,
+      deleteToggle: false,
     }
   },
   created(){
@@ -67,7 +90,8 @@ export default {
     },
   setup() {
     const weatherStore = useWeatherStore();
-    return { weatherStore }
+    const locationStore = useLocationStore();
+    return { weatherStore ,locationStore }
   },
   mounted() {
     this.fetchCurrentWeatherFromLocation(this.location);
@@ -105,6 +129,16 @@ export default {
     toggleDialogWindow(){
       this.dialogToggle = true;
       this.fetchLongTermWeather(this.location);
+    },
+    toggleDelete(){
+      this.deleteToggle = true;
+    },
+    deleteLocation(id){
+      this.locationStore.deleteLocation(id)
+      this.deleteToggle = false;
+      setTimeout(()=>{
+        this.locationStore.fetchCurrentLocations();
+      },1000)
     }
   },
   
@@ -126,7 +160,6 @@ export default {
 
 .countryName{
   font-size: 15px;
-  margin-left: 10px;
   opacity: 70%;
   color: #163172 !important;
 }
@@ -161,5 +194,22 @@ export default {
 .icon{
   width: 100px;
   height: 100px
+}
+.longterm-title{
+  display: flex;
+  align-items: baseline;
+  padding-left: 5%;
+  padding-bottom: 10px;
+}
+.longterm-city{
+  font-weight: bold;
+  font-size: 40px;
+  color: #1e56a0 !important;
+}
+.longterm-country{
+  font-size: 30px;
+  margin-left: 10px;
+  opacity: 70%;
+  color: #163172 !important;
 }
 </style>
