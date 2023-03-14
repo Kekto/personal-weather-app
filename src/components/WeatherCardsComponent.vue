@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cards-view{
     display: flex;
     flex-direction: row;
@@ -62,7 +62,13 @@ export default {
     gap: 10px;
     justify-content: left;
     flex-wrap: wrap;
+    width: fit-content;
     box-shadow: rgba(50, 50, 93, 0.25) 0px -1px 100px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+@media only screen and (max-width: 1126px) {
+  .cards-view {
+    justify-content: center;
+  }
 }
 </style>
   

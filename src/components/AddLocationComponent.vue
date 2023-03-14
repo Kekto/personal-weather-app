@@ -2,7 +2,7 @@
   <h3>Add Pre-Registered Location</h3>
   <el-select v-if="this.getAllLocations" v-model="value" filterable placeholder="Select">
     <el-option 
-      v-for="location in this.getAllLocations"
+      v-for="location in this.filteredLocations"
       :key="location.id"
       :label="location.city +' '+ location.country"
       :value="location.id"
@@ -43,12 +43,15 @@
         <img class="tooltip-image" src="@/assets/tooltip2.png"/>
         <div class="tooltip-text">
           Once you made sure all information is correct, you can add the
-          location to your local list, in which it should show up right 
+          location to your Pre-Registered Locations list, in which it should show up right 
           afterwards.
         </div>
       </template>
       <el-icon size="20px"><QuestionFilled /></el-icon>
     </el-tooltip>
+    <el-button color="#1e56a0" plain circle @click="this.getLocation()">
+      <el-icon><Location /></el-icon>
+    </el-button>
   </div>
 
   <!-- LOCATION CREATION FORM -->
@@ -106,11 +109,13 @@ export default {
     getAllLocations(){
       return this.locationStore.getAllLocations;
     },
-  },
-  mounted(){
-    setTimeout(()=>{
-      this.checkExistence(this.locationStore.getAllLocations[5],this.locationStore.getCurrentLocations)
-    },2000)
+    filteredLocations(){
+      return this.locationStore.getAllLocations.filter((loc) => {
+        return (!this.locationStore.getCurrentLocations.some(function(e) {
+          return (e.id == loc.id)
+        }))
+      })
+    }
   },
   methods: {
     addLocation(id){
@@ -135,10 +140,15 @@ export default {
         this.locationStore.fetchAllLocations();
       },1000)
     },
-    checkExistence(object,array){
-      console.log((array.some(function(e) {
-        return e.city == object.city
-      })));
+    getLocation(){
+      const successCallback = (position) => {
+        this.form.latitude = position.coords.latitude
+        this.form.longitude = position.coords.longitude
+      };
+      const errorCallback = (error) => {
+        console.log(error);
+      };
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     }
   },
 };

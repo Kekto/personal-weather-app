@@ -51,14 +51,17 @@
   </el-dialog>
   <el-dialog
       v-model="this.deleteToggle"
-      title="Are you sure you want to delete entry:"
       width="500px"
-      style="border-radius: 10px"
-      destroy-on-close
+      style="border-radius: 10px;"
+      destroy-on-close  
   >
-    <a class="longterm-city">{{this.location?.city}}</a>
-    <a class="longterm-country">{{this.location?.country}}</a>
-    <el-button plain type='danger' style="font-weight: bold;" @click="this.deleteLocation(location.id)">
+    <a>Are you sure you want to delete entry:</a>
+    <div style="margin-top: 15px;margin-bottom: 15px;">    
+      <a class="longterm-city">{{this.location?.city}}</a>
+      <a class="longterm-country">{{this.location?.country}}</a>
+    </div>
+
+    <el-button plain type='danger' style="font-weight: bold;width: 100px;" @click="this.deleteLocation(location.id)">
       <el-icon><Delete /></el-icon>
     </el-button>
   </el-dialog>
