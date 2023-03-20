@@ -1,5 +1,20 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <SearchLocationComponent/>
   </div>
 </template>
+
+<script>
+import SearchLocationComponent from '@/components/SearchLocationComponent.vue';
+
+export default {
+  name: 'AboutView',
+  components: {
+    SearchLocationComponent
+  },
+  data() {
+    return {
+    }
+  },
+}
+</script>

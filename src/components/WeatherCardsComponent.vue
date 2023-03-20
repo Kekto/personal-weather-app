@@ -43,11 +43,12 @@ export default {
     },
     mounted(){
         this.fetchCurrentLocations();
+
     },
     methods: {
         fetchCurrentLocations(){
             this.locationStore.fetchCurrentLocations();
-        },
+        }
     }
 }
 </script>

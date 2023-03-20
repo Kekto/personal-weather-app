@@ -6,6 +6,7 @@ export const useLocationStore = defineStore("location", {
 		return {
 			locations: [],
 			allLocations: [],
+			googleGeoCoordinates: [],
 		};
 	},
 	actions: {
@@ -61,6 +62,26 @@ export const useLocationStore = defineStore("location", {
 					console.log(err);
 				});
 		},
+		async fetchGoogleGeoCoordinates(address) {
+			await axios
+				.get(
+					`https://maps.googleapis.com/maps/api/geocode/json?address=` +
+						address +
+						`&key=AIzaSyD4vD_jiEOYTc0sq7_3gJ0xWG1YqSn2aJc&language=en`
+				)
+				.then((res) => {
+					console.log(res);
+					this.googleGeoCoordinates = {
+						country: res.data.results[0].formatted_address.split(",")[1],
+						city: res.data.results[0].formatted_address.split(",")[0],
+						latitude: res.data.results[0].geometry.location.lat,
+						longitude: res.data.results[0].geometry.location.lng,
+					};
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
 	},
 	getters: {
 		getCurrentLocations() {
@@ -68,6 +89,9 @@ export const useLocationStore = defineStore("location", {
 		},
 		getAllLocations() {
 			return this.allLocations;
+		},
+		getGoogleGeoCoordinates() {
+			return this.googleGeoCoordinates;
 		},
 	},
 });

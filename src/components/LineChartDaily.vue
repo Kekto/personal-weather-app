@@ -33,8 +33,19 @@
                 labels: this.dataset.map(d => d.time),
                 datasets: [
                     {
-                    label: 'Temperature °C',
-                    data: this.dataset.map(d=> (d.temperature_2m_max + d.temperature_2m_min)/2),
+                    label: 'Maximum Temperature °C',
+                    data: this.dataset.map(d=> (d.temperature_2m_max)),
+                    borderColor:'rgb(214, 228, 240)',
+                    tension: 0.3,
+                    fill: {
+                      target: 'origin',
+                      above: 'rgb(214, 228, 240, 0.6)',   
+                      below: 'rgb(168, 194, 230, 0.5)' 
+                    }
+                    },
+                    {
+                    label: 'Minimum Temperature °C',
+                    data: this.dataset.map(d=> (d.temperature_2m_min)),
                     borderColor:'rgb(214, 228, 240)',
                     tension: 0.3,
                     fill: {

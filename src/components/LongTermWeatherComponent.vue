@@ -1,5 +1,5 @@
 <template>
-  <LineChartDaily v-if="this.getLongTermWeatherDaily"
+  <LineChartDaily v-show="this.getLongTermWeatherDaily"
     :dataset="this.getLongTermWeatherDaily"
     class="mb-30 chart-daily"
   />

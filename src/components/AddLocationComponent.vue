@@ -21,9 +21,11 @@
       <el-icon size="large"><Plus /></el-icon>
     </el-button>
   </div>
+  <!-- DIVIDER -->
   <el-divider content-position="center">
     <span class="divider">or</span>
   </el-divider>
+  <!-- CUSTOM LOCATION CREATOR -->
   <div class="tooltip">
     <h3>Create Custom Location</h3>
     <el-tooltip class="tooltip" placement="left">
@@ -81,76 +83,82 @@
       <el-icon size="large"><Plus /></el-icon>
     </el-button>
   </div>
+  <!-- DIVIDER -->
+  <el-divider content-position="center">
+    <span class="divider">or</span>
+  </el-divider>
+  <h3>Use Google GeoLocation</h3>
+    <SearchLocationComponent/>
 </template>
 
 <script>
 import { useLocationStore } from '@/pinia/location';
+import SearchLocationComponent from './SearchLocationComponent.vue';
 
 export default {
-  name: "AddLocationComponent",
-  setup() {
-      const locationStore = useLocationStore();
-      return {locationStore}
-  },
-  data() {
-    return {
-      value: "",
-      cities: [],
-      form:{
-          id:'',
-          city:'',
-          country:'',
-          latitude:'',
-          longitude:'',
-      },
-    }
-  },
-  computed:{
-    getAllLocations(){
-      return this.locationStore.getAllLocations;
+    name: "AddLocationComponent",
+    components: { SearchLocationComponent },
+    setup() {
+        const locationStore = useLocationStore();
+        return { locationStore };
     },
-    filteredLocations(){
-      return this.locationStore.getAllLocations.filter((loc) => {
-        return (!this.locationStore.getCurrentLocations.some(function(e) {
-          return (e.id == loc.id)
-        }))
-      })
-    }
-  },
-  methods: {
-    addLocation(id){
-      console.log(id);
-      this.locationStore.addLocation(id);
-      setTimeout(()=>{
-        this.locationStore.fetchCurrentLocations();
-      },1000)
+    data() {
+        return {
+            value: "",
+            cities: [],
+            form: {
+                id: "",
+                city: "",
+                country: "",
+                latitude: "",
+                longitude: "",
+            }
+        };
     },
-    createCustomLocation(){
-      this.form.id = this.locationStore.getAllLocations[this.locationStore.getAllLocations.length-1].id + 1;
-      this.locationStore.createCustomLocation(this.form).then(
-        this.form = {
-          id:'',
-          city:'',
-          country:'',
-          latitude:'',
-          longitude:'',
+    computed: {
+        getAllLocations() {
+            return this.locationStore.getAllLocations;
+        },
+        filteredLocations() {
+            return this.locationStore.getAllLocations.filter((loc) => {
+                return (!this.locationStore.getCurrentLocations.some(function (e) {
+                    return (e.id == loc.id);
+                }));
+            });
+        },
+    },
+    methods: {
+        addLocation(id) {
+            console.log(id);
+            this.locationStore.addLocation(id);
+            setTimeout(() => {
+                this.locationStore.fetchCurrentLocations();
+            }, 1000);
+        },
+        createCustomLocation() {
+            this.form.id = this.locationStore.getAllLocations[this.locationStore.getAllLocations.length - 1].id + 1;
+            this.locationStore.createCustomLocation(this.form).then(this.form = {
+                id: "",
+                city: "",
+                country: "",
+                latitude: "",
+                longitude: "",
+            });
+            setTimeout(() => {
+                this.locationStore.fetchAllLocations();
+            }, 1000);
+        },
+        getLocation() {
+            const successCallback = (position) => {
+                this.form.latitude = position.coords.latitude;
+                this.form.longitude = position.coords.longitude;
+            };
+            const errorCallback = (error) => {
+                console.log(error);
+            };
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
         }
-      )
-      setTimeout(()=>{
-        this.locationStore.fetchAllLocations();
-      },1000)
     },
-    getLocation(){
-      const successCallback = (position) => {
-        this.form.latitude = position.coords.latitude
-        this.form.longitude = position.coords.longitude
-      };
-      const errorCallback = (error) => {
-        console.log(error);
-      };
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
-  },
 };
 </script>
 
@@ -174,7 +182,7 @@ export default {
   width:300px;
 }
 .button{
-  margin-top: 10px;
+  margin-top: 20px;
   width: 100px;
 }
 .divider{
