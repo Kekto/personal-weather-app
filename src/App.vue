@@ -56,6 +56,10 @@ nav {
   padding: 30px;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 nav a {
   font-weight: bold;
   color: #1e56a0;

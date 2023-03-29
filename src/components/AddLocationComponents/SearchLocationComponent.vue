@@ -1,4 +1,5 @@
 <template>
+  <h3>Use Google GeoLocation</h3>
   <el-container>
     <el-aside width="50%" style="margin-top: 50px;">
       <el-input v-model="searchInput" class="input-bar" placeholder="Search location">
@@ -44,7 +45,7 @@
         <GMapMap
           :center="{lat: gmap.latitude, lng: gmap.longitude}"
           :zoom="8"
-          style="width: 100%; height: 400px"
+          style="width: 400px; height: 400px"
         />
       </div>
     </el-main>
@@ -118,7 +119,6 @@ export default {
         }, 250)
       })
       console.log(form)
-      
     }
   },
 }
@@ -138,6 +138,7 @@ export default {
 }
 .button{
   height: 40px;
+  width: 100px;
 }
 .location-card{
   display: flex;

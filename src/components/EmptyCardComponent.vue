@@ -7,8 +7,8 @@
   </div>
   <el-dialog
       v-model="this.dialogToggle"
-      width="60%"
-      style="border-radius: 10px"
+      width="fit-content"
+      style="border-radius: 10px;min-width:790px"
   >
   <AddLocationComponent/>
   </el-dialog>
@@ -37,9 +37,7 @@ import { useLocationStore } from '@/pinia/location';
         this.dialogToggle = true;
         this.locationStore.fetchAllLocations();
       }
-
     },
-    
   };
 </script>
     
