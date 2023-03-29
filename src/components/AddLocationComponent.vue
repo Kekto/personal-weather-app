@@ -137,16 +137,17 @@ export default {
         },
         createCustomLocation() {
             this.form.id = this.locationStore.getAllLocations[this.locationStore.getAllLocations.length - 1].id + 1;
-            this.locationStore.createCustomLocation(this.form).then(this.form = {
+            this.locationStore.createCustomLocation(this.form).then(()=>{
+              this.form = {
                 id: "",
                 city: "",
                 country: "",
                 latitude: "",
                 longitude: "",
-            });
-            setTimeout(() => {
-                this.locationStore.fetchAllLocations();
-            }, 1000);
+              }
+            }).then(()=>{
+              this.locationStore.fetchAllLocations();
+            })
         },
         getLocation() {
             const successCallback = (position) => {

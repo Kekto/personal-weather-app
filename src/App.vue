@@ -1,4 +1,10 @@
 <template>
+  <div v-if="this.weatherStore.hour >=7 && this.weatherStore.hour < 19">
+    <img class="background-image" src="@/assets/pageBGDay.jpg"/>
+  </div>
+  <div v-else>
+    <img class="background-image" src="@/assets/pageBGNight.jpg"/>
+  </div>
   <div class="common-layout">
     <el-container>
       <el-header>
@@ -17,10 +23,16 @@
 
 <script>
 import NavBarComponent from './components/NavBarComponent.vue';
+import { useWeatherStore } from './pinia/weather';
+
 export default {
   components: {
       NavBarComponent
-    }
+    },
+    setup() {
+        const weatherStore = useWeatherStore();
+        return { weatherStore };
+    },
 }
 </script>
 
@@ -32,7 +44,14 @@ export default {
   text-align: center;
   color: #1e56a0;
 }
-
+.background-image{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  opacity:50%;
+  width: 100%;
+}
 nav {
   padding: 30px;
 }

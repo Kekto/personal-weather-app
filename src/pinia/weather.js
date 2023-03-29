@@ -14,22 +14,7 @@ export const useWeatherStore = defineStore("weather", {
 		};
 	},
 	actions: {
-		// async fetchCurrentWeather() {
-		// 	await axios
-		// 		.get(
-		// 			"https://api.open-meteo.com/v1/forecast?latitude=51.25&longitude=22.57&current_weather=true&timezone=CET"
-		// 		)
-		// 		.then((res) => {
-		// 			this.currentWeather = res.data;
-		// 			console.log(res.data);
-		// 		})
-		// 		.catch((err) => {
-		// 			console.log(err);
-		// 		});
-		// },
 		async fetchCurrentWeatherFromLocation(latitude, longitude, locationId) {
-			this.currentWeatherArr = [];
-			this.currentWeatherOrder = [];
 			await axios
 				.get(
 					`https://api.open-meteo.com/v1/forecast?latitude=` +
@@ -39,12 +24,20 @@ export const useWeatherStore = defineStore("weather", {
 						`&current_weather=true&timezone=CET`
 				)
 				.then((res) => {
-					this.currentWeatherArr.push(res.data);
-					this.currentWeatherOrder.push(locationId);
+					if (!this.currentWeatherOrder.includes(locationId)) {
+						this.currentWeatherArr.push(res.data);
+						this.currentWeatherOrder.push(locationId);
+					} else {
+						this.currentWeatherArr[
+							this.currentWeatherOrder.indexOf(locationId)
+						] = res.data;
+					}
 				})
 				.catch((err) => {
 					console.log(err);
 				});
+			// console.log(this.currentWeatherOrder);
+			// console.log(this.currentWeatherArr);
 		},
 		async fetchLongTermReport(latitude, longitude) {
 			let cd = new Date();
@@ -61,9 +54,9 @@ export const useWeatherStore = defineStore("weather", {
 				)
 				.then((res) => {
 					this.longTermWeatherDaily = this.adjustDailyJSON(res.data.daily);
-					console.log(this.longTermWeatherDaily);
+					// console.log(this.longTermWeatherDaily);
 					this.longTermWeatherHourly = this.adjustHourlyJSON(res.data.hourly);
-					console.log(this.longTermWeatherHourly);
+					// console.log(this.longTermWeatherHourly);
 				})
 				.catch((err) => {
 					console.log(err);

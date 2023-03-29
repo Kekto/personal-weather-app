@@ -74,6 +74,9 @@ export default {
       return this.locationStore.getGoogleGeoCoordinates;
     }
   },
+  mounted() {
+    this.getLocation()
+  },
   methods: {
     fetchGeoSearch(){
       this.locationStore.fetchGoogleGeoCoordinates(this.searchInput);
@@ -83,12 +86,42 @@ export default {
           longitude: this.locationStore.getGoogleGeoCoordinates.longitude
         }
         }, 250);
-    },        
+    },
+    getLocation() {
+      const successCallback = (position) => {
+        this.gmap = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+          }
+        }
+        const errorCallback = (error) => {
+            console.log(error);
+        }
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    },
     addGoogleLocation(){
-      console.log(this.locationStore.getGoogleGeoCoordinates)
+      let form = {
+        id: this.locationStore.getAllLocations[this.locationStore.getAllLocations.length - 1].id + 1,
+        country: this.locationStore.getGoogleGeoCoordinates?.country,
+        city: this.locationStore.getGoogleGeoCoordinates?.city,
+        latitude: this.locationStore.getGoogleGeoCoordinates?.latitude,
+        longitude: this.locationStore.getGoogleGeoCoordinates?.longitude
+      }
+      this.locationStore.createCustomLocation(form).then(() => {
+          this.locationStore.addLocation(form.id)
+        }).then(() =>{
+          this.locationStore.googleGeoCoordinates = []
+        }).then(() =>{
+          this.locationStore.fetchAllLocations();
+          setTimeout(() => {
+            this.locationStore.fetchCurrentLocations();
+        }, 250)
+      })
+      console.log(form)
+      
     }
   },
-};
+}
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span style="width: 100px">
+        <span style="width: 100px;height: 40px;">
           <a class="cityName">{{this.location?.city}}</a>
           <br/>
           <a class="countryName">{{this.location?.country}}</a>
@@ -60,7 +60,6 @@
       <a class="longterm-city">{{this.location?.city}}</a>
       <a class="longterm-country">{{this.location?.country}}</a>
     </div>
-
     <el-button plain type='danger' style="font-weight: bold;width: 100px;" @click="this.deleteLocation(location.id)">
       <el-icon><Delete /></el-icon>
     </el-button>
@@ -126,6 +125,7 @@ export default {
         this.weatherStore.locationHours[this.location.id] = this.zeroPaddings(cd.getHours(),2);
           setTimeout(()=>{
             this.fetchCurrentWeatherFromLocation(this.location);
+            console.log("Test")
           },2000)
       }
     },
@@ -157,7 +157,7 @@ export default {
 
 .cityName{
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   color: #1e56a0 !important;
 }
 

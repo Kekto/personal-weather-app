@@ -57,6 +57,7 @@ export const useLocationStore = defineStore("location", {
 				.delete(`http://localhost:3000/locations/` + id)
 				.then((res) => {
 					console.log(res);
+					this.fetchAllLocations();
 				})
 				.catch((err) => {
 					console.log(err);
