@@ -62,6 +62,13 @@
       "country": "Great Britain",
       "latitude": 51.51,
       "longitude": -0.198
+    },
+    {
+      "id": 15,
+      "country": " Poland",
+      "city": "Częstochowa",
+      "latitude": 50.8118195,
+      "longitude": 19.1203094
     }
   ],
   "allLocations": [
@@ -183,13 +190,6 @@
       "city": "New Jersey",
       "latitude": 40.0583238,
       "longitude": -74.4056612
-    },
-    {
-      "id": 17,
-      "city": "",
-      "country": "",
-      "latitude": "",
-      "longitude": ""
     }
   ]
 }

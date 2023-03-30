@@ -8,7 +8,7 @@
   <el-dialog
       v-model="this.dialogToggle"
       width="fit-content"
-      style="border-radius: 10px;min-width:790px"
+      style="border-radius: 10px;"
   >
   <AddLocationComponent/>
   </el-dialog>

@@ -1,14 +1,14 @@
 <template>
   <div v-if="value == 0" class="title">Select Method</div>
   <div v-if="value == 0" class="button-menu">
-    <el-button class="button">
-      <img class="icon" :src="require(`@/assets/googleIcon.svg`)" @click="value=1"/>
+    <el-button class="button" @click="value=1">
+      <el-icon size="160px" color=white><List /></el-icon>
     </el-button>
-    <el-button class="button">
-      <img class="icon" :src="require(`@/assets/googleIcon.svg`)" @click="value=2"/>
+    <el-button class="button" @click="value=2">
+      <el-icon size="150px" color=white><DocumentAdd/></el-icon>
     </el-button>
-    <el-button class="button">
-      <img class="icon" :src="require(`@/assets/googleIcon.svg`)" @click="value=3"/>
+    <el-button class="button" @click="value=3">
+      <img class="icon" :src="require(`@/assets/googleIcon.svg`)"/>
     </el-button>
   </div>
   <el-container>
@@ -17,7 +17,7 @@
         <span class="text-back">Return</span>
       </el-button>
     </el-aside>
-    <el-main>
+    <el-main style="min-width: 500px;">
       <AddPreRegisteredLocationComponent v-if="value == 1"/>
         <!-- DIVIDER -->
         <CreateCustomLocationComponent v-if="value == 2"/>
@@ -54,12 +54,17 @@ export default {
 }
 .button-menu{
   display: flex;
+  width: auto;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 15px;
 }
 .button{
-  width: auto;
-  height: auto;
+  width: 230px;
+  height: 230px;
   background-color: #163172;
+  border-radius: 0;
+  margin-left: 0 !important;
 }
 .button:hover{
   background-color: #1e56a0;
@@ -69,8 +74,6 @@ export default {
   height: 100%;
   width: 50px;
   background-color: #163172;
-
-  
 }.button-back:hover{
   background-color: #163172;
   opacity: 60%;
@@ -81,10 +84,8 @@ export default {
   font-weight: bold;
   color:white;
   font-size: 30px;
-}
-.content{
-  display: flex;
-  flex-direction: row;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 .icon{
   height: 200px;

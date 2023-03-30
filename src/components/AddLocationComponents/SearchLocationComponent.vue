@@ -1,7 +1,7 @@
 <template>
   <h3>Use Google GeoLocation</h3>
   <el-container>
-    <el-aside width="50%" style="margin-top: 50px;">
+    <el-aside style="margin-top: 50px;">
       <el-input v-model="searchInput" class="input-bar" placeholder="Search location">
         <template #suffix>
           <img class="input-icon" :src="require(`@/assets/googleIcon.svg`)"/>
@@ -40,7 +40,7 @@
         </el-button>
       </div>
     </el-aside>
-    <el-main>    
+    <el-main width="auto">    
       <div class="column">
         <GMapMap
           :center="{lat: gmap.latitude, lng: gmap.longitude}"
