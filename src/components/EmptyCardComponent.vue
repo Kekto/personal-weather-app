@@ -9,6 +9,7 @@
       v-model="this.dialogToggle"
       width="fit-content"
       style="border-radius: 10px;"
+      destroy-on-close
   >
   <AddLocationComponent/>
   </el-dialog>

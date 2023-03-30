@@ -1,15 +1,24 @@
 <template>
   <div v-if="value == 0" class="title">Select Method</div>
   <div v-if="value == 0" class="button-menu">
-    <el-button class="button" @click="value=1">
-      <el-icon size="160px" color=white><List /></el-icon>
-    </el-button>
-    <el-button class="button" @click="value=2">
-      <el-icon size="150px" color=white><DocumentAdd/></el-icon>
-    </el-button>
-    <el-button class="button" @click="value=3">
-      <img class="icon" :src="require(`@/assets/googleIcon.svg`)"/>
-    </el-button>
+    <div class="column">
+      <el-button class="button" @click="value=1">
+        <el-icon size="160px" color=white><List /></el-icon>
+      </el-button>
+      <span class="button-text">Pre-Registered Locations</span>
+    </div>
+    <div class="column">
+      <el-button class="button" @click="value=2">
+        <el-icon size="150px" color=white><DocumentAdd/></el-icon>
+      </el-button>
+      <span class="button-text">Custom Locations</span>
+    </div>
+    <div class="column">
+      <el-button class="button" @click="value=3">
+        <img class="icon" :src="require(`@/assets/googleIcon.svg`)"/>
+      </el-button>
+      <span class="button-text">Google Geolocation API</span>
+    </div>
   </div>
   <el-container>
     <el-aside v-if="value != 0" width="50px">
@@ -17,7 +26,7 @@
         <span class="text-back">Return</span>
       </el-button>
     </el-aside>
-    <el-main style="min-width: 500px;">
+    <el-main style="min-width: 700px;">
       <AddPreRegisteredLocationComponent v-if="value == 1"/>
         <!-- DIVIDER -->
         <CreateCustomLocationComponent v-if="value == 2"/>
@@ -68,6 +77,21 @@ export default {
 }
 .button:hover{
   background-color: #1e56a0;
+  width: 260px;
+  height: 260px;
+}
+.button:hover ~ .button-text{
+  font-size: 20px;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+}
+.button-text{
+  font-weight: bold;
+  color: #163172;
+  font-size: 16px;
+  padding-top: 20px;
 }
 .button-back{
   display: flex;

@@ -64,6 +64,13 @@ export default {
   data() {
     return {
       searchInput: '',
+      form: {
+        id: "",
+        city: "",
+        country: "",
+        latitude: "",
+        longitude: "",
+      },
       gmap: {
         latitude: 0,
         longitude:0
@@ -108,8 +115,11 @@ export default {
         latitude: this.locationStore.getGoogleGeoCoordinates?.latitude,
         longitude: this.locationStore.getGoogleGeoCoordinates?.longitude
       }
-      this.locationStore.createCustomLocation(form).then(() => {
-          this.locationStore.addLocation(form.id)
+      this.locationStore.createCustomLocation(form)
+        .then(() => {
+          setTimeout(()=>{
+            this.locationStore.addLocation(form.id)
+          },250)
         }).then(() =>{
           this.locationStore.googleGeoCoordinates = []
         }).then(() =>{
