@@ -82,6 +82,7 @@ export default {
 }
 .button:hover ~ .button-text{
   font-size: 20px;
+  opacity: 100%;
 }
 .column{
   display: flex;
@@ -92,6 +93,7 @@ export default {
   color: #163172;
   font-size: 16px;
   padding-top: 20px;
+  opacity: 70%;
 }
 .button-back{
   display: flex;

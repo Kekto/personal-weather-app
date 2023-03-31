@@ -7,7 +7,7 @@
           <img class="input-icon" :src="require(`@/assets/googleIcon.svg`)"/>
         </template>
       </el-input>
-      <el-button color="#1e56a0" class="button" plain @click="this.fetchGeoSearch()">
+      <el-button color="#1e56a0" class="button" plain @click="this.fetchGeoSearch()" :disabled="searchInput == ''">
         <span style="margin-right: 5px;">Search</span>
         <el-icon><Search /></el-icon>
       </el-button>
@@ -34,7 +34,7 @@
         </el-card>
         </div>
       <div>
-        <el-button color="#1e56a0" class="button" style="margin-top: 20px;" round plain @click="this.addGoogleLocation()" >
+        <el-button color="#1e56a0" class="button" style="margin-top: 20px;" round plain @click="this.addGoogleLocation()" :disabled="this.locationStore.getGoogleGeoCoordinates == ''">
           <span style="margin-right: 5px;">Add</span>
           <el-icon size="large"><Plus /></el-icon>
         </el-button>
@@ -64,13 +64,6 @@ export default {
   data() {
     return {
       searchInput: '',
-      form: {
-        id: "",
-        city: "",
-        country: "",
-        latitude: "",
-        longitude: "",
-      },
       gmap: {
         latitude: 0,
         longitude:0
@@ -92,8 +85,7 @@ export default {
         this.gmap= {
           latitude: this.locationStore.getGoogleGeoCoordinates.latitude,
           longitude: this.locationStore.getGoogleGeoCoordinates.longitude
-        }
-        }, 250);
+        }}, 250);
     },
     getLocation() {
       const successCallback = (position) => {

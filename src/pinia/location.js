@@ -72,12 +72,16 @@ export const useLocationStore = defineStore("location", {
 				)
 				.then((res) => {
 					console.log(res);
-					this.googleGeoCoordinates = {
-						country: res.data.results[0].formatted_address.split(",")[1],
-						city: res.data.results[0].formatted_address.split(",")[0],
-						latitude: res.data.results[0].geometry.location.lat,
-						longitude: res.data.results[0].geometry.location.lng,
-					};
+					if (res.data.status == "ZERO_RESULTS") {
+						console.log("NO RESULTS WERE FOUND");
+					} else {
+						this.googleGeoCoordinates = {
+							country: res.data.results[0].formatted_address.split(",")[1],
+							city: res.data.results[0].formatted_address.split(",")[0],
+							latitude: res.data.results[0].geometry.location.lat,
+							longitude: res.data.results[0].geometry.location.lng,
+						};
+					}
 				})
 				.catch((err) => {
 					console.log(err);

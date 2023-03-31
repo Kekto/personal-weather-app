@@ -50,7 +50,7 @@
     </el-form-item>
   </el-form>
   <div>
-    <el-button color="#1e56a0" class="button" round plain @click="this.createCustomLocation()">
+    <el-button color="#1e56a0" class="button" round plain @click="this.createCustomLocation()" :disabled="this.checkForm">
       <span style="margin-right: 5px;">Add</span>
       <el-icon size="large"><Plus /></el-icon>
     </el-button>
@@ -76,6 +76,15 @@ export default {
                 longitude: "",
             }
         };
+    },
+    computed:{
+      checkForm(){
+        return (
+         this.form.city == "" ||
+          this.form.country == "" ||
+           this.form.latitude == "" ||
+            this.form.longitude == "")
+      }
     },
     methods: {
         addLocation(id) {

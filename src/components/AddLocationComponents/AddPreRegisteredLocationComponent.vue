@@ -16,7 +16,7 @@
     </el-option>
   </el-select>
   <div>
-    <el-button color="#1e56a0" class="button" round plain @click="this.addLocation(this.value)">
+    <el-button color="#1e56a0" clearable class="button" round plain @click="this.addLocation(this.value)" :disabled="value.length==0">
       <span style="margin-right: 5px;">Add</span>
       <el-icon size="large"><Plus /></el-icon>
     </el-button>
@@ -53,6 +53,7 @@ export default {
     addLocation(id) {
       console.log(id);
       this.locationStore.addLocation(id);
+      this.value = "";
       setTimeout(() => {
           this.locationStore.fetchCurrentLocations();
       }, 1000);
