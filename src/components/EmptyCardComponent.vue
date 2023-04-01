@@ -10,6 +10,7 @@
       width="fit-content"
       style="border-radius: 10px;"
       destroy-on-close
+      :close="this.locationStore.googleGeoCoordinates = []"
   >
   <AddLocationComponent/>
   </el-dialog>

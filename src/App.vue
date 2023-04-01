@@ -7,9 +7,6 @@
   </div>
   <div class="common-layout">
     <el-container>
-      <el-header>
-        <nav-bar-component/>
-      </el-header>
       <el-container>
         <el-aside width="100px"></el-aside>
         <el-main>
@@ -22,12 +19,11 @@
 </template>
 
 <script>
-import NavBarComponent from './components/NavBarComponent.vue';
 import { useWeatherStore } from './pinia/weather';
 
 export default {
   components: {
-      NavBarComponent
+      
     },
     setup() {
         const weatherStore = useWeatherStore();
